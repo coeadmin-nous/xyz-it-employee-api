@@ -6,7 +6,7 @@ info:
   version: 1.0.0
 servers:
 - url: https://virtserver.swaggerhub.com/ETISALAT-BATCH3/xyz-it-employee-api/1.0.0
-  description: SwaggerHub API Auto Mocking
+  description: SwaggerHub Virtual API
 - url: http://xyz-it-employee-api.us-e2.cloudhub.io/api
   description: MuleSoft Endpoint
 
