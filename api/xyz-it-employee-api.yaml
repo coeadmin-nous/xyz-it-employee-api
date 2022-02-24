@@ -126,13 +126,9 @@ paths:
           description: Success response on deletion of employee record
           content:
             application/json:
-              examples:
-                Resp1:
-                  value:
-                    Message: Record has been deleted successfully
-                Resp2:
-                  value:
-                    Message: Record not exist
+              example:
+                Message: Record has been deleted successfully
+
 components:
   schemas:
     employeeDetails:
