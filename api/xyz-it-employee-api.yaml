@@ -2,13 +2,13 @@
 openapi: 3.0.0
 info:
   title: xyz-it-employee-api
-  description: API to perform employee data manipulation using Spring and Swagger
+  description: Demo of Registry API to showcase INtegration trigger
   version: 1.1.0
 servers:
-- url: https://virtserver.swaggerhub.com/ETISALAT-BATCH3/xyz-it-employee-api/1.0.0
+- url: https://virtserver.swaggerhub.com/ETISALAT-BATCH3/xyz-it-employee-api/1.1.0
   description: SwaggerHub Virtual API
 - url: http://xyz-it-employee-api.us-e2.cloudhub.io/api
-  description: MuleSoft Endpoint implementation
+  description: MuleSoft Endpoint implementation 
 
 paths:
   /it/employee:
