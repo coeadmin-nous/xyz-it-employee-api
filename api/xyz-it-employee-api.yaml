@@ -1,0 +1,195 @@
+---
+openapi: 3.0.0
+info:
+  title: xyz-it-employee-api
+  description: API to perform employee data manipulation using Spring and Swagger
+  version: 1.1.0
+servers:
+- url: https://virtserver.swaggerhub.com/ETISALAT-BATCH3/xyz-it-employee-api/1.0.0
+  description: SwaggerHub Virtual API
+- url: http://xyz-it-employee-api.us-e2.cloudhub.io/api
+  description: MuleSoft Endpoint implementation
+
+paths:
+  /it/employee:
+    get:
+      tags:
+      - IT_DEPARTMENT
+      summary: Get employee details based on the Designation and Date of Joining.
+      description: endpoint to get the employee details based on queries
+      parameters:
+      - name: Designation
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - Architect
+          - TL
+          - SSE
+          - Consultant
+      - name: DOJ
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 27-03-2021
+      responses:
+        "200":
+          description: Success  response for getEmployeeDetails
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/employeeDetails'
+    post:
+      tags:
+      - IT_DEPARTMENT
+      summary: Create IT Employee Data to the datasource.
+      description: endpoint to send the employee data to the datasource
+      operationId: postEmployeeDetails
+      requestBody:
+        $ref: '#/components/requestBodies/upsertEmployee'
+      responses:
+        "201":
+          description: Success Data response
+          content:
+            application/json:
+              example:
+                Message: Record has been inserted Successfully
+  /it/employee/{id}:
+    get:
+      tags:
+      - IT_DEPARTMENT
+      summary: Get employee details based on ID.
+      description: endpoint to get the employee data based on employee id
+      operationId: getEmployeeByID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          pattern: ^\d{3}-\d{2}-\d{4}$
+          type: string
+          example: 123-33-2112
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/employeeDetails'
+    put:
+      tags:
+      - IT_DEPARTMENT
+      summary: Update IT employee data based on the empployeeid.
+      description: endpoint to update the employee data based on employeeid
+      operationId: updateEmployeeDetails
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          pattern: ^\d{3}-\d{2}-\d{4}$
+          type: string
+          example: 123-33-2112
+      requestBody:
+        $ref: '#/components/requestBodies/upsertEmployee'
+      responses:
+        "200":
+          description: Success update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateresp'
+    delete:
+      tags:
+      - IT_DEPARTMENT
+      summary: Delete employee details based on ID.
+      description: end point to delete the employee data based on employee id
+      operationId: deleteEmployeeID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          pattern: ^\d{3}-\d{2}-\d{4}$
+          type: string
+          example: 123-33-2112
+      responses:
+        "200":
+          description: Success response on deletion of employee record
+          content:
+            application/json:
+              example:
+                Message: Record has been deleted successfully
+                
+                
+  /sales/employee/{id}:
+    get:
+      tags:
+      - SALES_DEPARTMENT
+      summary: Get employee details based on ID.
+      description: endpoint to get the employee data based on employee id
+      operationId: getsalesEmployeeByID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          pattern: ^\d{3}-\d{2}-\d{4}$
+          type: string
+          example: 123-33-2112
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/employeeDetails'
+
+components:
+  schemas:
+    employeeDetails:
+      properties:
+        Name:
+          type: string
+          example: Sam
+        Age:
+          type: number
+          example: 30
+        Gender:
+          type: string
+          example: M
+        DOJ:
+          type: string
+          example: 12-02-2022
+        DOB:
+          type: string
+          example: 01-01-1991
+        Designation:
+          type: string
+          example: SSE
+        Supervisor:
+          type: string
+          example: Jimmy
+        Worklocation:
+          type: string
+          example: US
+    updateresp:
+      properties:
+        Message:
+          type: string
+          example: Record has been updated successfully
+  requestBodies:
+    upsertEmployee:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/employeeDetails'
+x-azure-api-id: 'sh-25db4366-a58b-4bcf-9b85-3948076ac986'
